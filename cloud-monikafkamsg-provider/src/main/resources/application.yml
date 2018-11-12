@@ -1,0 +1,60 @@
+
+# PS：一个专用于模拟各种kafka消息的小项目，方便测试里进行open订单测试
+
+spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  zipkin:
+    base-url: http://10.2.2.199:10007
+    enabled: true
+  kafka:
+    bootstrap-servers: 101.200.77.0:9092 #使用新的测试kafka服务器-外网
+  sleuth:
+    sampler:
+      percentage: 1
+  application:
+    name: cloud-monikafkamsg
+  redis:
+    host: 10.2.2.127
+    database: 4
+    port: 6379
+    password:
+    pool:
+      max-active: 100
+      max-idle: 200
+      min-idle: 50
+
+#datasource:
+#  common:
+#    min-idle: 5
+#    max-active: 50
+#    time-between-eviction-runs-millis: 300000
+#    test-while-idle: true
+#    validation-query: SELECT 1 FROM DUAL
+#    sqlScriptEncoding: UTF-8
+#    max-idle: 5
+#    test-on-borrow: true
+#    sql-script-encoding: UTF-8
+#    initial-size: 10
+#    min-evictable-idle-time-millis: 1800000
+#    driver-class-name: com.mysql.jdbc.Driver
+#    test-on-return: false
+#  demo:
+#    url: jdbc:mysql://rm-2ze8769tt4l6y6u01o.mysql.rds.aliyuncs.com:3306/cloud-demo?useUnicode=true&characterEncoding=UTF8&connectTimeout=1000&socketTimeout=30000&jdbcCompliantTruncation=No&zeroDateTimeBehavior=convertToNull
+#    username: jindi
+#    password: J1ndiStd
+#
+#mybatis:
+#  demo:
+#    configuration:
+#      lazy-loading-enabled: false
+#    type-aliases-package: com.jindidata.cloud.monikafkamsg.entity,com.jindidata.cloud.monikafkamsg.model
+#    mapper-locations: classpath:mapper/demo/*.xml
+
+#mail:
+#  host: smtp.exmail.qq.com
+#  username: standard@tianyancha.com
+#  password: 5qF4TiMGcvxJ

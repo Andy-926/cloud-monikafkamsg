@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<jmxConfigurator />
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+    <property name="SIMPLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n"/>
+    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="debug" class="ch.qos.logback.core.FileAppender">
+        <file>${catalina.home}/logs/debug.log</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+	
+	<appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<file>${catalina.home}/logs/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.home}/logs/error.%d{yyyy-MM}.%i.log.zip</fileNamePattern>
+			 
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+    <logger name="debug" level="INFO">
+        <appender-ref ref="debug" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="console" />
+    </root>
+
+    <!--线上关闭sql日志-->
+    <!--<logger name="com.jindidata.cloud.std.me.mapper" level="DEBUG"></logger>-->
+
+    <!-- 本地过滤CommonDataSource-health-check无故报错  jdbcUrl is required with driverClassName -->
+    <logger name="org.springframework.boot.actuate.health.DataSourceHealthIndicator"
+            level="error"
+            additivity="false"/>
+</configuration>
