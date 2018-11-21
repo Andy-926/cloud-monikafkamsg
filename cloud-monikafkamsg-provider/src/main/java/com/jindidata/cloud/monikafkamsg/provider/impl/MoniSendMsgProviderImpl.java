@@ -42,13 +42,6 @@ public class MoniSendMsgProviderImpl implements MoniSendMsgProvider {
             br = new BufferedReader(new FileReader(file));
             String str;
             int i = 0;
-
-
-
-
-
-
-
             int j = 0;
             while ((str = br.readLine()) != null) {
 
